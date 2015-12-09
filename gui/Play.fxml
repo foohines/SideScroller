@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="panePlay" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
+   <children>
+   
+         <Canvas fx:id="canvas" height="512.0" width="960.0" />
+         <Button fx:id="btnPause" layoutX="900.0" layoutY="26.0" minHeight="32.0" minWidth="32.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" style="" text="...">
+        </Button>
+      <TitledPane fx:id="pauseMenu" animated="false" layoutX="175.0" layoutY="101.0" prefHeight="313.0" prefWidth="610.0" text="Menu" textAlignment="CENTER" collapsible="false">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="212.0" prefWidth="608.0">
+               <children>
+                  <Button fx:id="btnPlay" layoutX="14.0" layoutY="38.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="216.0" text="New Game" />
+                  <Button fx:id="btnSave" layoutX="15.0" layoutY="85.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="215.0" text="Save" />
+                  <Button fx:id="btnLoad" layoutX="18.0" layoutY="133.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="210.0" text="Load" />
+                  <Button fx:id="btnQuit" layoutX="19.0" layoutY="178.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="209.0" text="Quit" />
+                  <TextArea editable="false" layoutX="271.0" layoutY="165.0" prefHeight="84.0" prefWidth="308.0" text="Open up map.txt in the source folder to edit the map. &#10;The two numbers at the top represent the width and&#10;height. Use # for floors, . for walls, and Z for zombies." />
+                  <TextArea editable="false" layoutX="271.0" layoutY="43.0" prefHeight="84.0" prefWidth="308.0" text="Use W A S D to move around. &#10;Left Click to add a Zombie.&#10;Right Click to add a floor." />
+                  <Label layoutX="393.0" layoutY="14.0" text="How to Play" />
+                  <Label layoutX="390.0" layoutY="139.0" prefHeight="17.0" prefWidth="70.0" text="Pro Tip" textAlignment="CENTER" />
+               </children>
+            </AnchorPane>
+        </content>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TitledPane>
+   </children>
+
+</Pane>
