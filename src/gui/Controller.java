@@ -1,21 +1,18 @@
-package gui;
+package src.gui;
 
-import game.Game;
-import game.mechanics.Direction;
+import src.game.Game;
+import src.game.mechanics.Direction;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class Controller {
@@ -24,6 +21,7 @@ public class Controller {
 
     Game game;
     boolean playing = false;
+    boolean gameLoaded = false;
 
     @FXML
     public Canvas canvas;
@@ -163,7 +161,6 @@ public class Controller {
         }
 
     }
-
     public void onPlay(){
         if(game == null){
             //Load Game
@@ -172,32 +169,40 @@ public class Controller {
             startPlayHandlers();
             timer.start();
             btnPlay.setText("Resume");
+            gameLoaded = true;
         }
 
         pauseMenu.visibleProperty().set(false);
         playing = true;
-        btnSave.setText("Saved");
+        btnSave.setText("Save");
     }
     public void onLoad(){
         //Load Game
         game = new Game(canvas);
-        game.loadLevel("assets/saveFile.txt");
-        startPlayHandlers();
+        game.loadLevel("src/assets/saveFile.txt");
+
+        //Suggest recycling the old game
+        System.gc();
+
+        if(!gameLoaded) {
+            gameLoaded = true;
+            startPlayHandlers();
+        }
         timer.start();
         btnPlay.setText("Resume");
+        btnSave.setText("Save");
         pauseMenu.visibleProperty().set(false);
         playing = true;
 
     }
     public void onSave(){
         if(game != null) {
-            game.saveLevel("assets/saveFile.txt");
+            game.saveLevel("src/assets/saveFile.txt");
             btnSave.setText("Saved");
         }
 
 
     }
-
     public void onQuit(){
         Stage stage = (Stage) panePlay.getScene().getWindow();
         stage.close();

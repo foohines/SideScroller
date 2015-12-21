@@ -1,8 +1,8 @@
-package game.movable;
+package src.game.movable;
 
 
-import game.Game;
-import game.mechanics.Direction;
+import src.game.Game;
+import src.game.mechanics.Direction;
 import javafx.scene.image.Image;
 
 /**
@@ -93,7 +93,7 @@ public class Player extends Actor{
     }
 
     private static Image[] getImages(){
-        return new Image[]{new Image("assets/Right.png"), new Image("assets/Left.png")};
+        return new Image[]{new Image("src/assets/Right.png"), new Image("src/assets/Left.png")};
     }
 
 

@@ -1,8 +1,6 @@
-package game.movable;
+package src.game.movable;
 
-import game.mechanics.Direction;
-import game.movable.Actor;
-import game.movable.Player;
+import src.game.mechanics.Direction;
 import javafx.scene.image.Image;
 
 import java.util.Random;

@@ -1,13 +1,9 @@
-package game.map;
+package src.game.map;
 
-import game.Camera;
-import game.Drawable;
-import game.Game;
-import game.Level;
-import game.mechanics.Position;
-import game.mechanics.SpriteBox;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import src.game.Drawable;
+import src.game.Level;
+import src.game.mechanics.Position;
+import src.game.mechanics.SpriteBox;
 import javafx.scene.image.Image;
 
 /**

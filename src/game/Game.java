@@ -1,7 +1,7 @@
-package game;
+package src.game;
 
-import game.mechanics.Direction;
-import game.mechanics.Position;
+import src.game.mechanics.Direction;
+import src.game.mechanics.Position;
 import javafx.scene.canvas.Canvas;
 
 /**

@@ -1,6 +1,6 @@
-package game.map;
+package src.game.map;
 
-import game.mechanics.Position;
+import src.game.mechanics.Position;
 import javafx.scene.image.Image;
 
 /**
@@ -14,7 +14,7 @@ public class Wall extends Tile{
     }
 
     public Wall(int x, int y){
-        super(x, y, new Image("assets/RedSine.png"));
+        super(x, y, new Image("src/assets/RedSine.png"));
         solid = true;
     }
     public Wall(Position position, Image image) {
@@ -23,7 +23,7 @@ public class Wall extends Tile{
     }
 
     public Wall(Position position){
-        super((int) position.getX(), (int) position.getY(), new Image("assets/defaultWall.png"));
+        super((int) position.getX(), (int) position.getY(), new Image("src/assets/defaultWall.png"));
         solid = true;
     }
 }

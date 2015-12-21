@@ -1,14 +1,11 @@
-package game.movable;
+package src.game.movable;
 
-import game.Camera;
-import game.Drawable;
-import game.Game;
-import game.Level;
-import game.mechanics.*;
+import src.game.Camera;
+import src.game.Drawable;
+import src.game.Level;
+import src.game.mechanics.*;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
 /**
  * Created by Foster on 12/1/2015.

@@ -1,11 +1,8 @@
-package game.movable;
+package src.game.movable;
 
-import game.Game;
-import game.mechanics.Direction;
+import src.game.Game;
+import src.game.mechanics.Direction;
 import javafx.scene.image.Image;
-
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 
 /**
  * Created by Foster on 12/4/2015.
@@ -38,6 +35,6 @@ public class Zombie extends Mob{
     }
 
     private static Image[] getImages(){
-        return new Image[]{ new Image("assets/Zombie_R.png"), new Image("assets/Zombie.png")};
+        return new Image[]{ new Image("src/assets/Zombie_R.png"), new Image("src/assets/Zombie.png")};
     }
 }

@@ -1,4 +1,4 @@
-package game.mechanics;
+package src.game.mechanics;
 
 /**
  * Created by Foster on 12/1/2015.

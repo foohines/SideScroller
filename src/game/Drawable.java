@@ -1,9 +1,8 @@
-package game;
+package src.game;
 
-import game.mechanics.Position;
-import game.mechanics.SpriteBox;
+import src.game.mechanics.Position;
+import src.game.mechanics.SpriteBox;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;

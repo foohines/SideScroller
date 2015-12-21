@@ -1,8 +1,7 @@
-package game;
+package src.game;
 
-import game.mechanics.Position;
-import game.mechanics.SpriteBox;
-import game.mechanics.Velocity;
+import src.game.mechanics.Position;
+import src.game.mechanics.SpriteBox;
 
 /**
  * Created by Foster on 11/28/2015.

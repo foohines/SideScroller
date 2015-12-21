@@ -1,13 +1,13 @@
-package game;
+package src.game;
 
-import game.map.Floor;
-import game.map.Tile;
-import game.map.Wall;
-import game.mechanics.*;
-import game.movable.Actor;
-import game.movable.Mob;
-import game.movable.Player;
-import game.movable.Zombie;
+import src.game.map.Floor;
+import src.game.map.Tile;
+import src.game.map.Wall;
+import src.game.mechanics.*;
+import src.game.movable.Actor;
+import src.game.movable.Mob;
+import src.game.movable.Player;
+import src.game.movable.Zombie;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -39,7 +38,7 @@ public class Level extends Drawable {
         actors = new ArrayList<>();
         player = new Player(64,15*32);
         actors.add(player);
-        loadMap("assets/map.txt");
+        loadMap("src/assets/map.txt");
         camera.setOffset(player.getWidth()/2, player.getHeight()/2);
         camera.getPosition().setY(height - camera.getHeight());
 
@@ -74,10 +73,30 @@ public class Level extends Drawable {
     @Override
     public void draw(Canvas canvas, Camera camera) {
         canvas.getGraphicsContext2D().setFill(Color.WHITESMOKE);
-        canvas.getGraphicsContext2D().fillRect(0,0, canvas.getWidth(), canvas.getHeight());
-        for (Drawable member: contents) {
-            member.draw(canvas, camera);
+        canvas.getGraphicsContext2D().fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+        //Only draw tiles that camera can see
+        int cameraX = (int) camera.getPosition().getX() / TILE_WIDTH;
+        int cameraY = (int) camera.getPosition().getY() / TILE_HEIGHT;
+        int maxX = cameraX + (camera.getWidth() / TILE_WIDTH) + 1;
+        int maxY = cameraY + (camera.getHeight() / TILE_HEIGHT) + 1;
+        maxX = (maxX < tileGrid.length) ? maxX : tileGrid.length - 1;
+        maxY = (maxY < tileGrid[0].length) ? maxY : tileGrid[0].length - 1;
+
+        //Draw Map
+        for (int x = cameraX; x <= maxX; x++){
+            for (int y = cameraY; y <= maxY; y++) {
+                tileGrid[x][y].draw(canvas, camera);
+            }
         }
+
+        //Draw Actors
+        for (Actor actor: actors) {
+            actor.draw(canvas, camera);
+        }
+
+        //Redraw Player
+        player.draw(canvas, camera);
     }
 
     public void commandPlayer(Direction direction){ player.command(direction);}
@@ -196,7 +215,7 @@ public class Level extends Drawable {
                                 break;
                             }
                         }
-                    position = box.moveOtherBoxTo(actor.getSpriteBox());
+                    position = box.resolveSingleTileCollision(actor.getSpriteBox(), actor.getVelocity());
 
                     if(actor.position.getX() == position.getX())
                         actor.getVelocity().setX(0);
