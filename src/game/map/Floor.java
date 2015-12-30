@@ -7,22 +7,23 @@ import javafx.scene.image.Image;
  * Created by Foster on 11/30/2015.
  */
 public class Floor extends Tile {
-    public Floor(int x, int y, Image image) {
-        super(x, y, image);
+    public Floor(int x, int y, String filePath) {
+        super(x, y, filePath);
         solid = true;
     }
 
     public Floor(int x, int y){
-        super(x, y, new Image("src/assets/defaultFloor.png"));
+        super(x, y, "src/assets/defaultFloor.png");
         solid = true;
     }
-    public Floor(Position position, Image image) {
-        super((int) position.getX(), (int) position.getY() , image);
+
+    public Floor(Position position, String filePath) {
+        super((int) position.getX(), (int) position.getY() , filePath);
         solid = true;
     }
 
     public Floor(Position position){
-        super((int) position.getX(), (int) position.getY(), new Image("src/assets/defaultFloor.png"));
+        super((int) position.getX(), (int) position.getY(), "src/assets/defaultFloor.png");
         solid = true;
     }
 }

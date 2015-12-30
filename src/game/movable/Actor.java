@@ -90,8 +90,8 @@ public abstract class Actor extends Drawable {
 
         for(int x = 0; x <= tileWidth; x++) {
             for (int y = 0; y <= tileHeight; y++) {
-                surroundingTiles[x][y][0] = (int) (position.getX() + x * (Level.TILE_WIDTH) - ((x < tileWidth) ? 0 : 1)) / 32;
-                surroundingTiles[x][y][1] = (int) (position.getY() + y * (Level.TILE_HEIGHT) - ((y < tileHeight) ? 0 : 1)) / 32;
+                surroundingTiles[x][y][0] = (int) (position.getX() + x * (Level.TILE_WIDTH) - ((x < tileWidth) ? 0 : 1)) / Level.TILE_WIDTH;
+                surroundingTiles[x][y][1] = (int) (position.getY() + y * (Level.TILE_HEIGHT) - ((y < tileHeight) ? 0 : 1)) / Level.TILE_HEIGHT;
             }
         }
 

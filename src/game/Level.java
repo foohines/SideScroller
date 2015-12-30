@@ -22,8 +22,8 @@ import java.util.Scanner;
  */
 
 public class Level extends Drawable {
-    public final static short TILE_WIDTH = 32;
-    public final static short TILE_HEIGHT = 32;
+    public final static short TILE_WIDTH = 16;
+    public final static short TILE_HEIGHT = 16;
     int gridWidth;
     int gridHeight;
     boolean floorGrid[][];
@@ -36,11 +36,11 @@ public class Level extends Drawable {
 
     public Level(Camera camera){
         actors = new ArrayList<>();
-        player = new Player(64,15*32);
+        player = new Player(TILE_WIDTH*4+1, 41*(TILE_HEIGHT)-(3*TILE_HEIGHT)-129);
         actors.add(player);
         loadMap("src/assets/map.txt");
         camera.setOffset(player.getWidth()/2, player.getHeight()/2);
-        camera.getPosition().setY(height - camera.getHeight());
+
 
         for(int i = 1; i < actors.size(); i++)
             contents.add(actors.get(i));
@@ -128,8 +128,8 @@ public class Level extends Drawable {
 
     }
     public void addTile(int x, int y) {
-        x /= 32;
-        y /= 32;
+        x /= TILE_WIDTH;
+        y /= TILE_HEIGHT;
 
         if (floorGrid[x][y]) {
             return;
@@ -241,8 +241,9 @@ public class Level extends Drawable {
                             for (int x = 0; x <= width; x++) {
                                 if (collisions[x][y]) acc++;
                             }
+
                             if (acc > 1) {
-                                horizontalEdge = surroundingTiles[0][y][1] * 32;
+                                horizontalEdge = surroundingTiles[0][y][1] * TILE_HEIGHT;
                                 break;
                             }
                         }
@@ -254,7 +255,7 @@ public class Level extends Drawable {
                                 if (collisions[x][y]) acc++;
                             }
                             if (acc > 1) {
-                                horizontalEdge = surroundingTiles[0][y][1] * 32 + 31;
+                                horizontalEdge = surroundingTiles[0][y][1] * TILE_HEIGHT + (TILE_HEIGHT - 1);
                                 break;
                             }
                         }
@@ -268,8 +269,9 @@ public class Level extends Drawable {
                             for (int y = 0; y <= height; y++) {
                                 if (collisions[x][y]) acc++;
                             }
+
                             if (acc > 1) {
-                                verticalEdge = surroundingTiles[x][0][0] * 32;
+                                verticalEdge = surroundingTiles[x][0][0] * TILE_WIDTH;
                                 break;
                             }
                         }
@@ -283,7 +285,7 @@ public class Level extends Drawable {
                             }
 
                             if (acc > 1) {
-                                verticalEdge = surroundingTiles[x][0][0] * 32 + 31;
+                                verticalEdge = surroundingTiles[x][0][0] * TILE_WIDTH + (TILE_WIDTH - 1);
                                 break;
                             }
                         }
