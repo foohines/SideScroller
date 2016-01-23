@@ -56,8 +56,6 @@ public class Controller {
 
     public void initialize() {
         startMenuHandlers();
-
-
     }
 
     private void startMenuHandlers(){
@@ -65,35 +63,34 @@ public class Controller {
                 new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
-                        onPause();
+                        pause();
                     }
                 });
         btnSave.addEventHandler(MouseEvent.MOUSE_CLICKED,
                 new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
-                        onSave();
+                        save();
                     }
                 });
         btnPlay.addEventHandler(MouseEvent.MOUSE_CLICKED,
                 new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
-                        onPlay();
+                        play();
                     }
                 });
         btnQuit.addEventHandler(MouseEvent.MOUSE_CLICKED,
                 new EventHandler<MouseEvent>() {
                     @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        onQuit();
+                    public void handle(MouseEvent mouseEvent) { quit();
                     }
                 });
         btnLoad.addEventHandler(MouseEvent.MOUSE_CLICKED,
                 new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
-                        onLoad();
+                        load();
                     }
                 });
     }
@@ -114,54 +111,31 @@ public class Controller {
         panePlay.addEventHandler(KeyEvent.KEY_PRESSED,
                 new EventHandler<KeyEvent>() {
                     public void handle(KeyEvent event) {
-
-                            KeyCode code = event.getCode();
-
-                            if (code == KeyCode.W || code == KeyCode.UP) {
-                                game.movePlayer(Direction.UP);
-                            } else if (code == KeyCode.A || code == KeyCode.LEFT) {
-                                game.movePlayer(Direction.LEFT);
-                            } else if (code == KeyCode.S || code == KeyCode.DOWN) {
-                                game.movePlayer(Direction.DOWN);
-                            } else if (code == KeyCode.D || code == KeyCode.RIGHT) {
-                                game.movePlayer(Direction.RIGHT);
-                            }
-
+                        game.keyEvent(event.getCode(), true);
                     }
 
 
                 });
 
 
-        //KeyPressed
+        //KeyReleased
         panePlay.addEventHandler(KeyEvent.KEY_RELEASED,
                 new EventHandler<KeyEvent>() {
                     public void handle(KeyEvent event) {
-                        KeyCode code = event.getCode();
-
-                            if (code == KeyCode.W || code == KeyCode.UP) {
-                                game.stopMovePlayer(Direction.UP);
-                            } else if (code == KeyCode.A || code == KeyCode.LEFT) {
-                                game.stopMovePlayer(Direction.LEFT);
-                            } else if (code == KeyCode.S || code == KeyCode.DOWN) {
-                                game.stopMovePlayer(Direction.DOWN);
-                            } else if (code == KeyCode.D || code == KeyCode.RIGHT) {
-                                game.stopMovePlayer(Direction.RIGHT);
-                            }
-
+                        game.keyEvent(event.getCode(), false);
                     }
 
                 });
     }
 
-    public void onPause(){
+    public void pause(){
         if(playing) {
             playing = false;
             pauseMenu.visibleProperty().set(true);
         }
 
     }
-    public void onPlay(){
+    public void play(){
         if(game == null){
             //Load Game
             game = new Game(canvas);
@@ -176,7 +150,7 @@ public class Controller {
         playing = true;
         btnSave.setText("Save");
     }
-    public void onLoad(){
+    public void load(){
         //Load Game
         game = new Game(canvas);
         game.loadLevel("src/assets/saveFile.txt");
@@ -195,7 +169,7 @@ public class Controller {
         playing = true;
 
     }
-    public void onSave(){
+    public void save(){
         if(game != null) {
             game.saveLevel("src/assets/saveFile.txt");
             btnSave.setText("Saved");
@@ -203,7 +177,7 @@ public class Controller {
 
 
     }
-    public void onQuit(){
+    public void quit(){
         Stage stage = (Stage) panePlay.getScene().getWindow();
         stage.close();
     }

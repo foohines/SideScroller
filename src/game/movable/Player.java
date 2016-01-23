@@ -1,6 +1,7 @@
 package src.game.movable;
 
 
+import javafx.scene.input.KeyCode;
 import src.game.Game;
 import src.game.mechanics.Direction;
 import javafx.scene.image.Image;
@@ -29,13 +30,13 @@ public class Player extends Actor{
             accelerate((this.getVelocity().getX()*(-.05)), 0);
         }
         if(btnLeft) {
-            accelerate(-.5, 0);
+            accelerate(-.4, 0);
             direction = Direction.LEFT;
             sprite = images[1];
 
         }
         if(btnRight){
-            accelerate(.5, 0);
+            accelerate(.4, 0);
             sprite = images[0];
             direction = Direction.RIGHT;
         }
@@ -59,37 +60,28 @@ public class Player extends Actor{
     }
     //public void handleAttacks(){}
 
-    public void command(Direction direction){
-        switch(direction){
+    public void keyEvent(KeyCode code, boolean down){
+        switch(code){
             case UP:
-                btnUp = true;
+            case W:
+                btnUp = down;
                 break;
             case DOWN:
-                btnDown = true;
+            case S:
+                btnDown = down;
                 break;
             case LEFT:
-                btnLeft = true;
+            case A:
+                btnLeft = down;
                 break;
             case RIGHT:
-                btnRight = true;
+            case D:
+                btnRight = down;
                 break;
         }
     }
-    public void stopCommand(Direction direction){
-        switch(direction){
-            case UP:
-                btnUp = false;
-                break;
-            case DOWN:
-                btnDown = false;
-                break;
-            case LEFT:
-                btnLeft = false;
-                break;
-            case RIGHT:
-                btnRight = false;
-                break;
-        }
+    public void mouseClick(double x, double y, Direction button){
+
     }
 
     private static Image[] getImages(){

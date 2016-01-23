@@ -11,6 +11,7 @@ public abstract class Box{
     public abstract int getX2();
     public abstract int getY1();
     public abstract int getY2();
+
     public int getWidth(){ return width;}
     public int getHeight(){ return height;}
 

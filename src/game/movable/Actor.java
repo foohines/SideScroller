@@ -6,13 +6,19 @@ import src.game.Level;
 import src.game.mechanics.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
+import javafx.embed.swing.SwingFXUtils;
+
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 
 /**
  * Created by Foster on 12/1/2015.
  */
 public abstract class Actor extends Drawable {
 
-    public Position previousPosition;
+
     private Velocity velocity;
     private  Velocity maxVelocity;
     private HitBox hitBox;
@@ -20,7 +26,7 @@ public abstract class Actor extends Drawable {
     private int surroundingTiles[][][];
     private int tileHeight;
     private int tileWidth;
-    Image images[];
+    Image[] images;
 
     private int maxHealth;
     private int health;
@@ -30,7 +36,12 @@ public abstract class Actor extends Drawable {
     public boolean atWall;
     protected boolean alive;
 
-    public Actor(int x, int y, int width, int height, int health, Image images[]) {
+    AnimationEngine animationEngine;
+
+    private Velocity prevVelocity;
+    private Position prevPosition;
+
+    public Actor(int x, int y, int width, int height, int health, Image[] images) {
         velocity = new Velocity(0,0);
         maxVelocity = new Velocity(10, 15);
         position = new Position(x, y);
@@ -41,26 +52,18 @@ public abstract class Actor extends Drawable {
 
         hitBox = new HitBox(width, height, position, 10);
         spriteBox = new SpriteBox(width, height, position);
-        surroundingTiles = new int[tileWidth+1][tileHeight+1][2]; //Only works for heros that are multiples of tiles
+        surroundingTiles = new int[tileWidth+1][tileHeight+1][2]; //Only works for actors that are multiples of tiles
 
-        this.images = images;
         this.sprite = images[0];
         this.health = health;
-        maxHealth = health;
-        boolean isAlive;
+        this.maxHealth = health;
 
 
     }
+
     @Override
     public void draw(Canvas canvas, Camera camera){
-        switch (direction) {
-            case LEFT:
-                sprite = images[1];
-                break;
-            case RIGHT:
-                sprite = images[0];
-                break;
-        }
+
 
         super.draw(canvas, camera);
     }
@@ -70,7 +73,7 @@ public abstract class Actor extends Drawable {
     //public void handleAttacks()
 
     public final void move(){
-        previousPosition = position;
+        prevPosition = position;
         position.move(velocity.getX(), velocity.getY());
         grounded = false;
         atWall = false;
@@ -86,7 +89,6 @@ public abstract class Actor extends Drawable {
 
     public int[][][] getSurroundingTiles(){
 
-        //Complicated shit that took me 2 hours to come up with
 
         for(int x = 0; x <= tileWidth; x++) {
             for (int y = 0; y <= tileHeight; y++) {
@@ -129,6 +131,40 @@ public abstract class Actor extends Drawable {
 
     public void setPosition(double x, double y){
         position.set(x,y);
+    }
+
+    private static class AnimationEngine {
+        static Image[] leftImages;
+        static Image[] rightImages;
+
+        public AnimationEngine(Image[] images){
+
+            BufferedImage image;
+            AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+            AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+
+            for(int i = 0; i < images.length; i++){
+                rightImages[i] = images[i];
+
+                image = SwingFXUtils.fromFXImage(images[i], null);
+                image = op.filter(image, null);
+
+                leftImages[i] = SwingFXUtils.toFXImage(image, null);
+            }
+        }
+
+        public static Image GetImage(){
+            switch (direction) {
+                case LEFT:
+                    sprite = images[1];
+                    break;
+                case RIGHT:
+                    sprite = images[0];
+                    break;
+            }
+        }
+
+
     }
 
 

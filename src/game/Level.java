@@ -1,5 +1,6 @@
 package src.game;
 
+import javafx.scene.input.KeyCode;
 import src.game.map.Floor;
 import src.game.map.Tile;
 import src.game.map.Wall;
@@ -99,8 +100,14 @@ public class Level extends Drawable {
         player.draw(canvas, camera);
     }
 
-    public void commandPlayer(Direction direction){ player.command(direction);}
-    public void stopCommandPlayer(Direction direction){ player.stopCommand(direction);}
+    public void keyEvent(KeyCode key, boolean down){
+        player.keyEvent(key, down);
+    }
+
+    public void mouseClick(double x, double y, Direction button){
+        player.mouseClick(x, y, button);
+    }
+
     public void addZombie(int x, int y){
 
         Actor zombie = new Zombie(x, y, player);
